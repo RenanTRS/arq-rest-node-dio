@@ -21,3 +21,21 @@ usersRoute.post('/users', (req: Request, res: Response, next: NextFunction) => {
   const newUser = req.body
   res.status(201).send(newUser)
 })
+
+//PUT
+usersRoute.put(
+  '/users/:uuid',
+  (req: Request<{ uuid: string }>, res: Response, next: NextFunction) => {
+    const id = req.params.uuid
+    const { name } = req.body
+    res.status(200).send({ id, name })
+  }
+)
+
+//DELETE
+usersRoute.delete(
+  '/users/:uuid',
+  (req: Request<{ uuid: string }>, res: Response, next: NextFunction) => {
+    res.sendStatus(200)
+  }
+)
