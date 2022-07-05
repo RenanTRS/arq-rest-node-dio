@@ -15,7 +15,10 @@
     "strict": false,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@models/*": ["./src/models/*"],
+      "@repositories/*": ["./src/repositories/*"]
+    }
   },
   "include": ["src/**/*"]
 }
