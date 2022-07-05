@@ -43,14 +43,16 @@ usersRoute.put(
     modifierUser.uuid = id
     await usersRepository.update(modifierUser)
 
-    res.status(200).send()
+    res.sendStatus(200)
   }
 )
 
 //DELETE
 usersRoute.delete(
   '/users/:uuid',
-  (req: Request<{ uuid: string }>, res: Response, next: NextFunction) => {
+  async (req: Request<{ uuid: string }>, res: Response, next: NextFunction) => {
+    const id = req.params.uuid
+    await usersRepository.remove(id)
     res.sendStatus(200)
   }
 )
