@@ -24,10 +24,14 @@ usersRoute.get(
 )
 
 //POST
-usersRoute.post('/users', (req: Request, res: Response, next: NextFunction) => {
-  const newUser = req.body
-  res.status(201).send(newUser)
-})
+usersRoute.post(
+  '/users',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const newUser = req.body
+    const id = await usersRepository.create(newUser)
+    res.status(201).send(id)
+  }
+)
 
 //PUT
 usersRoute.put(
