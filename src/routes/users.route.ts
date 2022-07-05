@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express'
 import { UserRepository } from '@repositories/user.repository'
+import { DatabaseError } from '@models/errors/database.error.model'
 
 export const usersRoute = Router()
 
@@ -17,9 +18,17 @@ usersRoute.get(
 usersRoute.get(
   '/users/:uuid',
   async (req: Request<{ uuid: string }>, res: Response, next: NextFunction) => {
-    const id = req.params.uuid
-    const user = await usersRepository.findById(id)
-    res.status(200).send(user)
+    try {
+      const id = req.params.uuid
+      const user = await usersRepository.findById(id)
+      res.status(200).send(user)
+    } catch (error) {
+      if (error instanceof DatabaseError) {
+        res.sendStatus(400)
+      } else {
+        res.sendStatus(500)
+      }
+    }
   }
 )
 
