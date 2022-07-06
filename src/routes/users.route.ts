@@ -23,11 +23,12 @@ usersRoute.get(
       const user = await usersRepository.findById(id)
       res.status(200).send(user)
     } catch (error) {
-      if (error instanceof DatabaseError) {
+      /* if (error instanceof DatabaseError) {
         res.sendStatus(400)
       } else {
         res.sendStatus(500)
-      }
+      } */
+      next(error)
     }
   }
 )
